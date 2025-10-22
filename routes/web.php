@@ -27,14 +27,4 @@ Route::middleware('admin')->group(function () {
     Route::resource('product', ProductController::class);
 });
 
-
-// Products Features
-Route::get('/products/add', function () {
-    return view('dashboard.products.add');
-})->name('add-products');
-
-Route::get('/products/edit', function () {
-    return view('dashboard.products.edit');
-})->name('edit-products');
-
 require __DIR__ . '/auth.php';
