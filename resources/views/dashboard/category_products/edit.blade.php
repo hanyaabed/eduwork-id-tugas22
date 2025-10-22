@@ -5,12 +5,28 @@
         </h2>
     </x-slot>
     <div class="container py-5">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
-                <form action="#" method="POST">
+                <form action="{{ route('product-category.update', $category->id) }}" method="POST">
+                    @method('PUT') @csrf
                     <div class="mb-3">
-                        <label for="nama_kategori" class="form-label">Nama Kategori</label>
-                        <input type="text" class="form-control" id="nama_kategori" name="nama_kategori"
+                        <label for="name" class="form-label">Nama Kategori</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}"
                             placeholder="Masukkan nama kategori" required>
                     </div>
 

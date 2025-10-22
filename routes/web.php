@@ -37,14 +37,4 @@ Route::get('/products/edit', function () {
     return view('dashboard.products.edit');
 })->name('edit-products');
 
-
-// Products Category Features
-Route::get('/category-products/add', function () {
-    return view('dashboard.category_products.add');
-})->name('add-categories');
-
-Route::get('/category-products/edit', function () {
-    return view('dashboard.category_products.edit');
-})->name('edit-categories');
-
 require __DIR__ . '/auth.php';
