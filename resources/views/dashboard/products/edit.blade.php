@@ -7,51 +7,50 @@
     <div class="container py-5">
         <div class="card">
             <div class="card-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
-
+                <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    @method('PUT') @csrf
                     <!-- Nama Produk -->
                     <div class="mb-3">
-                        <label for="nama_produk" class="form-label">Nama Produk</label>
-                        <input type="text" class="form-control" id="nama_produk" name="nama_produk"
-                            placeholder="Masukkan nama produk" required>
+                        <label for="name" class="form-label">Nama Produk</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}"
+                            required>
                     </div>
 
                     <!-- Deskripsi -->
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"
-                            placeholder="Tulis deskripsi produk" required></textarea>
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required>{{ $product->description }}</textarea>
                     </div>
 
                     <!-- Stok -->
                     <div class="mb-3">
-                        <label for="stok" class="form-label">Stok</label>
-                        <input type="number" class="form-control" id="stok" name="stok"
-                            placeholder="Masukkan jumlah stok" min="0" required>
+                        <label for="stock" class="form-label">Stok</label>
+                        <input type="number" class="form-control" id="stock" name="stock"
+                            value="{{ $product->stock }}" min="0" required>
                     </div>
 
                     <!-- Harga -->
                     <div class="mb-3">
-                        <label for="harga" class="form-label">Harga (Rp)</label>
-                        <input type="number" class="form-control" id="harga" name="harga"
-                            placeholder="Masukkan harga produk" min="0" required>
+                        <label for="price" class="form-label">Harga (Rp)</label>
+                        <input type="number" class="form-control" id="price" name="price"
+                            value="{{ $product->price }}" min="0" required>
                     </div>
 
                     <!-- Gambar -->
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
                     <div class="mb-3">
-                        <label for="gambar" class="form-label">Gambar Produk</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                        <label for="image" class="form-label">Gambar Produk</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
                     </div>
 
                     <!-- Kategori -->
                     <div class="mb-3">
-                        <label for="kategori" class="form-label">Kategori Produk</label>
-                        <select class="form-select" id="kategori" name="kategori" required>
+                        <label for="product_category_id" class="form-label">Kategori Produk</label>
+                        <select class="form-select" id="product_category_id" name="product_category_id" required>
                             <option value="" disabled selected>Pilih kategori</option>
-                            <option value="elektronik">Elektronik</option>
-                            <option value="pakaian">Pakaian</option>
-                            <option value="makanan">Makanan</option>
-                            <option value="lainnya">Lainnya</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ $product->product_category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 

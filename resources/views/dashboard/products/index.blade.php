@@ -48,8 +48,11 @@
                         <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
                         <td><img src="{{ asset('storage/' . $product->image) }}" class="img-fluid" style="max-width: 150px;" alt="products"></td>
                         <td>
-                            <a href="{{ route('edit-products') }}" class="btn btn-warning btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
+                            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('product.destroy', $product->id) }}" method="post" class="d-inline">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
